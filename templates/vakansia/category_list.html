@@ -1,5 +1,7 @@
 {% extends 'vakansia/base.html' %}
+{% load static %}
 {% block title %}Категории{% endblock %}
+{% block page_css %}<link rel="stylesheet" href="{% static 'css/category_list.css' %}">{% endblock %}
 {% block content %}
 <div class="results-heading category-page-heading">
     <div><p class="eyebrow">НАВИГАЦИЯ</p><h1>Категории вакансий</h1><p class="muted">Выберите направление или управляйте списком категорий.</p></div>

@@ -1,9 +1,12 @@
+{% load static %}
 <!doctype html>
 <html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Работа в Таджикистане{% endblock %} | Vakansia</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block page_css %}{% endblock %}
 </head>
 <body>
     <header class="topbar">

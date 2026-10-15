@@ -1,5 +1,7 @@
 {% extends 'vakansia/base.html' %}
+{% load static %}
 {% block title %}{{ title }}{% endblock %}
+{% block page_css %}<link rel="stylesheet" href="{% static 'css/form.css' %}">{% endblock %}
 {% block content %}
 <a class="back-link" href="{% if back_args %}{% url back_url back_args.0 %}{% else %}{% url back_url %}{% endif %}">← Назад</a>
 <section class="panel editor-card">

@@ -1,5 +1,7 @@
 {% extends 'vakansia/base.html' %}
+{% load static %}
 {% block title %}{{ title }}{% endblock %}
+{% block page_css %}<link rel="stylesheet" href="{% static 'css/confirm_delete.css' %}">{% endblock %}
 {% block content %}
 <section class="panel confirm-card">
     <div class="confirm-icon">!</div>

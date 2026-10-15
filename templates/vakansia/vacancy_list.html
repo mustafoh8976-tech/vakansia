@@ -1,5 +1,7 @@
 {% extends 'vakansia/base.html' %}
+{% load static %}
 {% block title %}Вакансии{% endblock %}
+{% block page_css %}<link rel="stylesheet" href="{% static 'css/vacancy_list.css' %}">{% endblock %}
 {% block content %}
 <section class="hero">
     <p class="eyebrow">КАРЬЕРА НАЧИНАЕТСЯ ЗДЕСЬ</p>

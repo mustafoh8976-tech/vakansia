@@ -1,5 +1,7 @@
 {% extends 'vakansia/base.html' %}
+{% load static %}
 {% block title %}{{ vacancy.title }}{% endblock %}
+{% block page_css %}<link rel="stylesheet" href="{% static 'css/vacancy_detail.css' %}">{% endblock %}
 {% block content %}
 <a class="back-link" href="{% url 'vakansia:vacancy_list' %}">← Все вакансии</a>
 <div class="detail-layout">
