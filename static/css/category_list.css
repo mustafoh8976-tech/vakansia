@@ -1,0 +1,14 @@
+.results-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.category-page-heading { margin-bottom: 21px; }
+.category-page-heading h1 { margin: 0 0 6px; font-size: 28px; }
+.category-page-heading p { margin-bottom: 0; }
+.category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); gap: 13px; }
+.category-card { padding: 19px; }
+.category-card-title { font-size: 17px; font-weight: 700; }
+.category-card > p { margin: 8px 0 17px; font-size: 13px; }
+.card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.text-link { color: var(--green); font-size: 13px; font-weight: 700; }
+.danger-link { color: var(--red); }
+.empty-state { padding: 40px 22px; text-align: center; }
+.empty-state h3 { margin: 8px 0; font-size: 18px; }
+.empty-state p { font-size: 13px; }

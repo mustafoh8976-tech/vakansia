@@ -1,0 +1,56 @@
+.hero { position: relative; overflow: hidden; margin-bottom: 27px; padding: 38px 44px 34px; border: 1px solid #dcebe2; border-radius: 17px; background: linear-gradient(115deg, #e7f3ec, #f2f7f3 72%, #e9f4ee); }
+.hero::after { position: absolute; top: -105px; right: -35px; width: 280px; height: 280px; border: 1px solid #d8e9df; border-radius: 50%; content: ""; }
+.hero > * { position: relative; z-index: 1; }
+.hero h1 { margin: 0 0 8px; font-size: clamp(28px, 4vw, 38px); letter-spacing: -1.25px; }
+.hero-text { margin-bottom: 23px; color: #64716b; font-size: 15px; }
+.search-form { display: flex; gap: 9px; max-width: 750px; }
+.search-field { display: flex; flex: 1; align-items: center; gap: 12px; height: 49px; padding: 0 14px; border: 1px solid #dfe7e2; border-radius: 9px; background: white; color: #75847d; font-size: 23px; }
+.search-field input { width: 100%; border: 0; outline: 0; color: var(--ink); background: transparent; font: 14px "Segoe UI", Arial, sans-serif; }
+.search-field input::placeholder { color: #7b8781; opacity: 1; }
+
+.content-grid { display: grid; grid-template-columns: 248px minmax(0, 1fr); align-items: start; gap: 22px; }
+.sidebar { padding: 19px 15px; }
+.sidebar-heading, .results-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sidebar-heading { margin: 0 4px 13px; }
+.sidebar-heading h2, .results-heading h2 { margin: 0; font-size: 17px; }
+.sidebar-heading a { color: var(--green); font-size: 12px; font-weight: 650; }
+.category-link { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-radius: 7px; color: #58665f; font-size: 13px; }
+.category-link.active, .category-link:hover { color: var(--green); background: var(--mint); }
+.category-link span { color: #84918b; font-size: 12px; }
+.results-heading { margin: 0 0 14px; }
+.results-heading p { margin: 5px 0 0; font-size: 13px; }
+
+.vacancy-card { display: flex; gap: 15px; margin-bottom: 12px; padding: 19px; }
+.company-mark { display: grid; flex: 0 0 44px; height: 44px; place-items: center; border-radius: 10px; color: var(--green); background: var(--mint); font-size: 19px; font-weight: 700; }
+.vacancy-main { min-width: 0; flex: 1; }
+.vacancy-topline { display: flex; align-items: center; justify-content: space-between; }
+.category-tag { display: inline-flex; padding: 5px 9px; border-radius: 20px; color: var(--green); background: var(--mint); font-size: 11px; font-weight: 650; }
+.vacancy-topline time { color: #8b9691; font-size: 11px; }
+.vacancy-card h3 { margin: 10px 0 3px; font-size: 17px; letter-spacing: -.2px; }
+.company-name { margin: 0 0 10px; color: #59665f; font-size: 13px; }
+.vacancy-meta { display: flex; flex-wrap: wrap; gap: 14px; color: #74817a; font-size: 12px; }
+.description-preview { margin: 11px 0; color: #6e7a74; font-size: 13px; line-height: 1.55; }
+.card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.text-link { color: var(--green); font-size: 13px; font-weight: 700; }
+.danger-link { color: var(--red); }
+.empty-state { padding: 40px 22px; text-align: center; }
+.empty-state h3 { margin: 8px 0; font-size: 18px; }
+.empty-state p { font-size: 13px; }
+.empty-icon { color: #90b09f; font-size: 34px; }
+.pagination { display: flex; align-items: center; justify-content: space-between; padding: 16px 4px; color: var(--muted); font-size: 13px; }
+.pagination a { color: var(--green); font-weight: 650; }
+
+@media (max-width: 760px) {
+    .hero { padding: 28px 22px; }
+    .search-form { flex-direction: column; }
+    .content-grid { grid-template-columns: 1fr; }
+    .sidebar { padding: 15px; }
+}
+
+@media (max-width: 460px) {
+    .vacancy-card { gap: 10px; padding: 14px; }
+    .company-mark { flex-basis: 37px; height: 37px; }
+    .vacancy-card h3 { font-size: 16px; }
+    .results-heading { align-items: flex-start; }
+    .results-heading .button { padding: 0 11px; font-size: 12px; }
+}
