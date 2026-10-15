@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Работа в Таджикистане{% endblock %} | Vakansia</title>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="{% url 'vakansia:vacancy_list' %}"><span class="brand-mark">v</span> vakansia</a>
+            <nav class="main-nav">
+                <a href="{% url 'vakansia:vacancy_list' %}">Вакансии</a>
+                <a href="{% url 'vakansia:category_list' %}">Категории</a>
+            </nav>
+            <a class="button button-primary button-small" href="{% url 'vakansia:vacancy_create' %}">+ Разместить вакансию</a>
+        </div>
+    </header>
+    <main class="page">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">Vakansia <span>·</span> Найдите работу, которая вам подходит</footer>
+</body>
+</html>

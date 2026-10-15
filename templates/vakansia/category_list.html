@@ -1,0 +1,23 @@
+{% extends 'vakansia/base.html' %}
+{% block title %}Категории{% endblock %}
+{% block content %}
+<div class="results-heading category-page-heading">
+    <div><p class="eyebrow">НАВИГАЦИЯ</p><h1>Категории вакансий</h1><p class="muted">Выберите направление или управляйте списком категорий.</p></div>
+    <a class="button button-primary" href="{% url 'vakansia:category_create' %}">+ Добавить категорию</a>
+</div>
+<div class="category-grid">
+    {% for category in categories %}
+        <article class="panel category-card">
+            <a class="category-card-title" href="{% url 'vakansia:vacancy_list' %}?category={{ category.pk }}">{{ category.name }}</a>
+            <p class="muted">{{ category.vacancy_count }} вакансий</p>
+            <div class="card-actions">
+                <a class="text-link" href="{% url 'vakansia:vacancy_list' %}?category={{ category.pk }}">Смотреть вакансии →</a>
+                <a class="muted small" href="{% url 'vakansia:category_update' category.pk %}">Изменить</a>
+                <a class="danger-link small" href="{% url 'vakansia:category_delete' category.pk %}">Удалить</a>
+            </div>
+        </article>
+    {% empty %}
+        <div class="empty-state panel"><h3>Категорий пока нет</h3><p class="muted">Создайте первую категорию, чтобы сгруппировать вакансии.</p><a class="button button-primary" href="{% url 'vakansia:category_create' %}">Добавить категорию</a></div>
+    {% endfor %}
+</div>
+{% endblock %}

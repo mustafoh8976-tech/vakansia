@@ -1,0 +1,37 @@
+{% extends 'vakansia/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<a class="back-link" href="{% if back_args %}{% url back_url back_args.0 %}{% else %}{% url back_url %}{% endif %}">← Назад</a>
+<section class="panel editor-card">
+    <p class="eyebrow">УПРАВЛЕНИЕ</p>
+    <h1>{{ title }}</h1>
+    <form method="post" class="stack-form">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {% if vacancy_form and field.name == 'category' and not has_categories %}
+                    <div class="category-required">
+                        <p>Сначала создайте категорию — она нужна для каждой вакансии.</p>
+                        <a class="button button-outline" href="{% url 'vakansia:category_create' %}?next={% url 'vakansia:vacancy_create' %}">+ Создать категорию</a>
+                    </div>
+                {% else %}
+                    {{ field }}
+                {% endif %}
+                {% if field.help_text %}<span class="muted small">{{ field.help_text }}</span>{% endif %}
+                {% for error in field.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+            </div>
+        {% endfor %}
+        {% if form.non_field_errors %}<div class="field-error">{{ form.non_field_errors }}</div>{% endif %}
+        <div class="form-actions">
+            {% if vacancy_form and not has_categories %}
+                <button class="button button-primary" type="submit" disabled>Сначала добавьте категорию</button>
+            {% else %}
+                <button class="button button-primary" type="submit">Сохранить</button>
+            {% endif %}
+            {% if next_url %}<input type="hidden" name="next" value="{{ next_url }}">{% endif %}
+            <a class="button button-quiet" href="{% if cancel_args %}{% url cancel_url cancel_args.0 %}{% else %}{% url cancel_url %}{% endif %}">Отмена</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

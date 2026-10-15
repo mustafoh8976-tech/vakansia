@@ -1,0 +1,14 @@
+{% extends 'vakansia/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<section class="panel confirm-card">
+    <div class="confirm-icon">!</div>
+    <h1>{{ title }}?</h1>
+    <p>Вы уверены, что хотите удалить «{{ object }}»? Это действие нельзя отменить.</p>
+    <form method="post" class="form-actions">
+        {% csrf_token %}
+        <button class="button button-danger" type="submit">Да, удалить</button>
+        <a class="button button-quiet" href="{% if cancel_args %}{% url cancel_url cancel_args.0 %}{% else %}{% url cancel_url %}{% endif %}">Отмена</a>
+    </form>
+</section>
+{% endblock %}

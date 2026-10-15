@@ -1,0 +1,40 @@
+{% extends 'vakansia/base.html' %}
+{% block title %}{{ vacancy.title }}{% endblock %}
+{% block content %}
+<a class="back-link" href="{% url 'vakansia:vacancy_list' %}">← Все вакансии</a>
+<div class="detail-layout">
+    <article class="panel detail-card">
+        <a class="category-tag" href="{% url 'vakansia:vacancy_list' %}?category={{ vacancy.category_id }}">{{ vacancy.category.name }}</a>
+        <h1>{{ vacancy.title }}</h1>
+        <p class="detail-company">{{ vacancy.company }}</p>
+        <div class="vacancy-meta detail-meta">
+            {% if vacancy.location %}<span>⌖ {{ vacancy.location }}</span>{% endif %}
+            {% if vacancy.salary %}<span>↗ {{ vacancy.salary }}</span>{% endif %}
+            <span>Опубликовано {{ vacancy.created_at|date:"d.m.Y" }}</span>
+        </div>
+        <hr>
+        <h2>Описание вакансии</h2>
+        <div class="prose">{{ vacancy.description|linebreaks }}</div>
+        <div class="detail-actions">
+            <a class="button button-outline" href="{% url 'vakansia:vacancy_update' vacancy.pk %}">Редактировать</a>
+            <a class="button button-danger-outline" href="{% url 'vakansia:vacancy_delete' vacancy.pk %}">Удалить</a>
+        </div>
+    </article>
+    <aside class="panel apply-card">
+        <h2>Откликнуться на вакансию</h2>
+        <p class="muted">Оставьте свои контакты — работодатель свяжется с вами.</p>
+        <form method="post" class="stack-form">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-field">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% for error in field.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+                </div>
+            {% endfor %}
+            {% if form.non_field_errors %}<div class="field-error">{{ form.non_field_errors }}</div>{% endif %}
+            <button class="button button-primary button-wide" type="submit">Отправить отклик</button>
+        </form>
+    </aside>
+</div>
+{% endblock %}

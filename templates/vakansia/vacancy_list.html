@@ -1,0 +1,65 @@
+{% extends 'vakansia/base.html' %}
+{% block title %}Вакансии{% endblock %}
+{% block content %}
+<section class="hero">
+    <p class="eyebrow">КАРЬЕРА НАЧИНАЕТСЯ ЗДЕСЬ</p>
+    <h1>Найдите работу своей мечты</h1>
+    <p class="hero-text">Актуальные вакансии от работодателей Таджикистана</p>
+    <form class="search-form" method="get">
+        <label class="search-field">
+            <span aria-hidden="true">⌕</span>
+            <input type="search" name="q" value="{{ query }}" placeholder="Должность или организация">
+        </label>
+        {% if selected_category %}<input type="hidden" name="category" value="{{ selected_category }}">{% endif %}
+        <button class="button button-primary" type="submit">Найти работу</button>
+    </form>
+</section>
+
+<div class="content-grid">
+    <aside class="sidebar panel">
+        <div class="sidebar-heading"><h2>Категории</h2><a href="{% url 'vakansia:category_list' %}">Управлять</a></div>
+        <a class="category-link {% if not selected_category %}active{% endif %}" href="{% url 'vakansia:vacancy_list' %}">Все вакансии</a>
+        {% for category in categories %}
+            <a class="category-link {% if selected_category == category.pk|stringformat:'s' %}active{% endif %}" href="{% url 'vakansia:vacancy_list' %}?category={{ category.pk }}">{{ category.name }} <span>{{ category.vacancy_count }}</span></a>
+        {% empty %}
+            <p class="muted small">Категорий пока нет.</p>
+        {% endfor %}
+    </aside>
+
+    <section class="results">
+        <div class="results-heading">
+            <div><h2>Свежие вакансии</h2><p class="muted">{{ total_count }} предложений</p></div>
+            <a class="button button-outline button-small" href="{% url 'vakansia:vacancy_create' %}">+ Добавить вакансию</a>
+        </div>
+        {% for vacancy in page_obj %}
+            <article class="vacancy-card panel">
+                <div class="company-mark">{{ vacancy.company|slice:":1"|upper }}</div>
+                <div class="vacancy-main">
+                    <div class="vacancy-topline"><a class="category-tag" href="{% url 'vakansia:vacancy_list' %}?category={{ vacancy.category_id }}">{{ vacancy.category.name }}</a><time>{{ vacancy.created_at|date:"d.m.Y" }}</time></div>
+                    <h3><a href="{% url 'vakansia:vacancy_detail' vacancy.pk %}">{{ vacancy.title }}</a></h3>
+                    <p class="company-name">{{ vacancy.company }}</p>
+                    <div class="vacancy-meta">
+                        {% if vacancy.location %}<span>⌖ {{ vacancy.location }}</span>{% endif %}
+                        {% if vacancy.salary %}<span>↗ {{ vacancy.salary }}</span>{% endif %}
+                    </div>
+                    <p class="description-preview">{{ vacancy.description|truncatewords:24 }}</p>
+                    <div class="card-actions">
+                        <a class="text-link" href="{% url 'vakansia:vacancy_detail' vacancy.pk %}">Подробнее →</a>
+                        <a class="muted small" href="{% url 'vakansia:vacancy_update' vacancy.pk %}">Редактировать</a>
+                        <a class="danger-link small" href="{% url 'vakansia:vacancy_delete' vacancy.pk %}">Удалить</a>
+                    </div>
+                </div>
+            </article>
+        {% empty %}
+            <div class="empty-state panel"><div class="empty-icon">⌕</div><h3>Вакансии не найдены</h3><p class="muted">Попробуйте изменить поисковый запрос или выбрать другую категорию.</p><a class="text-link" href="{% url 'vakansia:vacancy_list' %}">Сбросить фильтры</a></div>
+        {% endfor %}
+        {% if page_obj.has_other_pages %}
+            <nav class="pagination" aria-label="Страницы">
+                {% if page_obj.has_previous %}<a href="?q={{ query|urlencode }}&category={{ selected_category }}&page={{ page_obj.previous_page_number }}">← Назад</a>{% endif %}
+                <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+                {% if page_obj.has_next %}<a href="?q={{ query|urlencode }}&category={{ selected_category }}&page={{ page_obj.next_page_number }}">Дальше →</a>{% endif %}
+            </nav>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}
